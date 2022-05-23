@@ -1,0 +1,55 @@
+            // for bind combo box
+            using(SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            {
+            SqlCommand cmd = new SqlCommand("select * from country",con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            comboBox1.ValueMember = "cid";
+            comboBox1.DisplayMember = "CountryName";
+            comboBox1.DataSource = dt;            
+            comboBox2.Enabled = false;
+            comboBox3.Enabled = false;
+            }
+            ------------------------------------------------------------------------------------------------------------------------
+            if (comboBox1.SelectedValue.ToString() != null)
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+                {
+                    SqlCommand cmd = new SqlCommand("select * from State where cid=@cid", con);
+                    cmd.Parameters.AddWithValue("@cid", comboBox1.SelectedValue.ToString());
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    comboBox2.ValueMember = "Stateid";
+                    comboBox2.DisplayMember = "StateName";
+                    comboBox2.DataSource = dt;
+                    comboBox2.Enabled = true;
+                    comboBox3.Enabled = false;
+                }
+                
+            }
+            -----------------------------------------------------------------------------------------------------------------------------------
+            
+            if (comboBox2.SelectedValue.ToString() != null)
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+                {
+                    SqlCommand cmd = new SqlCommand("select * from city where stateid = @stateid", con);
+                    cmd.Parameters.AddWithValue("@stateid", comboBox2.SelectedValue.ToString());
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    comboBox3.ValueMember = "CityId";
+                    comboBox3.DisplayMember = "CityName";
+                    comboBox3.DataSource = dt;                    
+                    comboBox3.Enabled = true;
+                }
+
+            }
+            
+            
+            
+            
+            
+            
