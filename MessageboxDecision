@@ -1,0 +1,12 @@
+DialogResult x =  MessageBox.Show("Data Inserted Successfully","Confirmation",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                if (x == DialogResult.No)
+                {
+                    this.Close();
+
+                }
+                else if (x == DialogResult.Yes)
+                {
+                    Form2 obj = new Form2();
+                    obj.Show();
+                    
+                }
