@@ -1,0 +1,114 @@
+-----------------------------------------------------------------------
+// Insert Data Into Table
+--------------------------------------------------------------------------
+
+string gender;
+            if (MaleradioButton1.Checked)
+            {
+                gender = "M";
+            }
+            else
+            {
+                gender = "F";
+            }
+            using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("insert into emptable (FullName,Email,Mobile,Gender,cid,stateid,cityid) values (@FullName,@Email,@Mobile,@Gender,@cid,@stateid,@cityid)", con);
+                cmd.Parameters.AddWithValue("@Fullname",FullNametextBox2.Text);
+                cmd.Parameters.AddWithValue("@Email", EmailtextBox3.Text);
+                cmd.Parameters.AddWithValue("@Mobile", MobiletextBox4.Text);
+                cmd.Parameters.AddWithValue("@Gender", gender.ToString());
+                cmd.Parameters.AddWithValue("@Cid", CountrycomboBox1.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@StateId", StatecomboBox2.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@CityId", CitycomboBox3.SelectedValue.ToString());
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Data Inserted Successfully");
+            }
+            
+   ---------------------------------------------------------------------------------------------------------------------------------------
+   // Update table Data
+   ---------------------------------------------------------------------------------------------------------------------------------------
+   string gender;
+            if (MaleradioButton1.Checked)
+            {
+                gender = "M";
+            }
+            else
+            {
+                gender = "F";
+            }
+            using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Update emptable set FullName = @FullName,Email= @Email,Mobile = @Mobile,Gender = @Gender,cid = @cid,stateid= @stateid,cityid = @cityid where Rowid = @Rowid", con);
+                cmd.Parameters.AddWithValue("rowid",Convert.ToInt32(RowidtextBox1.Text).ToString());
+                cmd.Parameters.AddWithValue("@Fullname", FullNametextBox2.Text);
+                cmd.Parameters.AddWithValue("@Email", EmailtextBox3.Text);
+                cmd.Parameters.AddWithValue("@Mobile", MobiletextBox4.Text);
+                cmd.Parameters.AddWithValue("@Gender", gender.ToString());
+                cmd.Parameters.AddWithValue("@Cid", CountrycomboBox1.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@StateId", StatecomboBox2.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@CityId", CitycomboBox3.SelectedValue.ToString());
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Data Updated Successfully");
+                fillgridview();
+            }
+   
+   
+    ---------------------------------------------------------------------------------------------------------------------------------------
+   // fill dataGridView
+   ---------------------------------------------------------------------------------------------------------------------------------------
+   private void fillgridview()
+        {
+            using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            {
+                SqlCommand cmd = new SqlCommand("select * from Emptable", con);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dataGridView1.DataSource = dt;
+            }
+        }
+    ---------------------------------------------------
+    Fill Text Boxes from grid view
+    -----------------------------------------------------
+    private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                RowidtextBox1.Text = row.Cells[0].Value.ToString();
+                FullNametextBox2.Text = row.Cells[1].Value.ToString();
+                EmailtextBox3.Text = row.Cells[2].Value.ToString();
+                MobiletextBox4.Text = row.Cells[3].Value.ToString();
+                if (row.Cells[4].Value.ToString() == "M")
+                {
+                    MaleradioButton1.Checked = true;
+                }
+                else
+                {
+                    FemaleradioButton2.Checked = true;
+                }
+                CountrycomboBox1.SelectedValue = row.Cells[5].Value.ToString();
+                StatecomboBox2.SelectedValue = row.Cells[6].Value.ToString();
+                CitycomboBox3.SelectedValue=  row.Cells[7].Value.ToString();
+            }
+        }
+        
+       ------------------------------------------
+       Delete Query
+       ----------------------------------------
+  
+          using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Delete from  emptable where Rowid = @Rowid", con);
+                cmd.Parameters.AddWithValue("rowid", Convert.ToInt32(RowidtextBox1.Text).ToString());
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Record Deleted Succussfully");
+                fillgridview();
+            }
+   
+   
+   
