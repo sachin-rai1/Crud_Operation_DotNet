@@ -1,5 +1,5 @@
             // for bind combo box
-            using(SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            using(SqlConnection con = new SqlConnection(@"yourdatasource"))
             {
             SqlCommand cmd = new SqlCommand("select * from country",con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -14,7 +14,7 @@
             ------------------------------------------------------------------------------------------------------------------------
             if (comboBox1.SelectedValue.ToString() != null)
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+                using (SqlConnection con = new SqlConnection(@"yourdatasource"))
                 {
                     SqlCommand cmd = new SqlCommand("select * from State where cid=@cid", con);
                     cmd.Parameters.AddWithValue("@cid", comboBox1.SelectedValue.ToString());
@@ -33,7 +33,7 @@
             
             if (comboBox2.SelectedValue.ToString() != null)
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+                using (SqlConnection con = new SqlConnection(@"yourdatasource"))
                 {
                     SqlCommand cmd = new SqlCommand("select * from city where stateid = @stateid", con);
                     cmd.Parameters.AddWithValue("@stateid", comboBox2.SelectedValue.ToString());
