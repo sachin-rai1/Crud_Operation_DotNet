@@ -11,7 +11,7 @@ string gender;
             {
                 gender = "F";
             }
-            using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            using (SqlConnection con = new SqlConnection(@"yourdatasource"))
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("insert into emptable (FullName,Email,Mobile,Gender,cid,stateid,cityid) values (@FullName,@Email,@Mobile,@Gender,@cid,@stateid,@cityid)", con);
@@ -38,7 +38,7 @@ string gender;
             {
                 gender = "F";
             }
-            using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            using (SqlConnection con = new SqlConnection(@"yourdatasource"))
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("Update emptable set FullName = @FullName,Email= @Email,Mobile = @Mobile,Gender = @Gender,cid = @cid,stateid= @stateid,cityid = @cityid where Rowid = @Rowid", con);
@@ -61,7 +61,7 @@ string gender;
    ---------------------------------------------------------------------------------------------------------------------------------------
    private void fillgridview()
         {
-            using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+            using (SqlConnection con = new SqlConnection(@"yourdatasource"))
             {
                 SqlCommand cmd = new SqlCommand("select * from Emptable", con);
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -100,7 +100,7 @@ string gender;
        Delete Query
        ----------------------------------------
   
-          using (SqlConnection con = new SqlConnection(@"Data Source=YEWTEC13\SQLEXPRESS2005;Initial Catalog=GenAcc_sachin_2122;User ID=sa;Password=secure"))
+          using (SqlConnection con = new SqlConnection(@"yourdatasource"))
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("Delete from  emptable where Rowid = @Rowid", con);
